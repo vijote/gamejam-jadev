@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
 
     public static Player instance;
 
+
+    [SerializeField] private int food;
+    [SerializeField] private int goalFood;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +49,8 @@ public class Player : MonoBehaviour
             Mathf.Clamp(transform.position.y, minBound.y, maxBound.y),
             Mathf.Clamp(transform.position.z, minBound.z, maxBound.z)
         );
+
+         
     }
 
     private void HandlePlayerInput()
@@ -83,11 +89,11 @@ public class Player : MonoBehaviour
     {
         this.score += newScore;
 
-        if(this.score > (int)SizeMaxScore.Large)
+        if (this.score > (int)SizeMaxScore.Large)
         {
             // Level clear
         }
-        else if(this.score > (int)SizeMaxScore.Medium)
+        else if (this.score > (int)SizeMaxScore.Medium)
         {
             this.size = Size.Large;
             return;
@@ -97,5 +103,11 @@ public class Player : MonoBehaviour
             this.size = Size.Medium;
             return;
         }
+    }
+
+    public bool IsAbleToEvolve()
+    {
+        //despues hay q ponerse a fusionar esto con bichi
+        return true;
     }
 }
