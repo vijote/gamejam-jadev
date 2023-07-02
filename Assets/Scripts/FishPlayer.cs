@@ -29,6 +29,17 @@ public class FishPlayer : MonoBehaviour
         if (!isAlive) return;
 
         HandlePlayerInput();
+
+        // Calculate the boundaries of the playable area
+        Vector3 minBound = PlayableArea.playableAreaCenter - PlayableArea.playableAreaSize / 2f;
+        Vector3 maxBound = PlayableArea.playableAreaCenter + PlayableArea.playableAreaSize / 2f;
+
+        // Clamp the player's position to the playable area boundaries
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x, minBound.x, maxBound.x),
+            Mathf.Clamp(transform.position.y, minBound.y, maxBound.y),
+            Mathf.Clamp(transform.position.z, minBound.z, maxBound.z)
+        );
     }
 
     private void HandlePlayerInput()
