@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,11 @@ public class Enemy : MonoBehaviour
     private FieldOfView visibility;
     private NavMeshAgent agent;
     private GameObject player;
-    private Size size;
-    private State state;
+    private FishPlayer playerData;
     private Animator animator;
+
+    private Size size;
+    private string state = State.Idle;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,7 @@ public class Enemy : MonoBehaviour
         this.visibility = GetComponent<FieldOfView>();
         this.player = GameObject.Find("Player");
         this.agent = GetComponent<NavMeshAgent>();
+        this.playerData = player.GetComponent<FishPlayer>();
     }
 
     // Update is called once per frame
@@ -30,8 +34,17 @@ public class Enemy : MonoBehaviour
         // Follow the player if it's visible
         if (this.visibility.canSeePlayer)
         {
-            this.agent.SetDestination(player.transform.position);
+            this.state = State.Running;
+
+            if (this.size > this.playerData.size)
+            {
+                this.agent.SetDestination(player.transform.position);
+            } else
+            {
+                RunAway();
+            }
         }
+
         this.PlayAnimation();
     }
 
@@ -45,11 +58,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void SetSize(Size newSize)
+    {
+        this.size = newSize;
+    }
+
+    private void RunAway()
+    {
+        Vector3 direction = transform.position - player.transform.position;
+        Vector3 runToPosition = transform.position + direction.normalized * 5f; // Adjust the distance as needed
+
+        agent.SetDestination(runToPosition);
+    }
+
     private void EatPlayer()
     {
         FishPlayer player = GameObject.Find("Player").GetComponent<FishPlayer>();
 
-        this.animator.Play("Attack");
+        this.animator.Play(AnimationDictionary.States[this.state]);
 
         player.isAlive = false;
         player.playerAnimator.Play("Death");
@@ -57,13 +83,6 @@ public class Enemy : MonoBehaviour
 
     private void PlayAnimation()
     {
-        if (this.visibility.canSeePlayer)
-        {
-            this.animator.Play("Run");
-        }
-        else
-        {
-            this.animator.Play("Idle_A");
-        }
+        this.animator.Play(AnimationDictionary.States[this.state]);
     }
 }

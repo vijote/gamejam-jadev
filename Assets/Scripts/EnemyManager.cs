@@ -31,6 +31,8 @@ public class EnemyManager : MonoBehaviour
     
     public void SpawnEnemy()
     {
+        if (enemies.Count == 5) return;
+
         // Get a random enemy prefab from the list
         GameObject randomEnemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 
@@ -42,6 +44,8 @@ public class EnemyManager : MonoBehaviour
 
         // Get the Enemy component from the instantiated enemy GameObject
         Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
+
+        newEnemy.SetSize(SizeHelper.GetRandomSize());
 
         // Add the new enemy to the enemies list
         enemies.Add(newEnemy);

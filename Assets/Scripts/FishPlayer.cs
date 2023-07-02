@@ -15,6 +15,7 @@ public class FishPlayer : MonoBehaviour
     //Animator
     public Animator playerAnimator;
     public bool isAlive = true;
+    public Size size;
 
     // Start is called before the first frame update
     void Start()
