@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    public FieldOfView EnemyVisibility;
-    public NavMeshAgent agent;
-    public Transform player;
-    private bool eating = false;
-
-    // Animator
-    public Animator animator;
+    private FieldOfView visibility;
+    private NavMeshAgent agent;
+    private GameObject player;
+    private Size size;
+    private State state;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        this.animator = GetComponent<Animator>();
+        this.visibility = GetComponent<FieldOfView>();
+        this.player = GameObject.Find("Player");
+        this.agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(eating) return;
+        // The current animation is "Attack" and the game is finishing
+        if(this.state == State.Attack) return;
 
         // Follow the player if it's visible
-        if (this.EnemyVisibility.canSeePlayer)
+        if (this.visibility.canSeePlayer)
         {
-            agent.SetDestination(player.position);
+            this.agent.SetDestination(player.transform.position);
         }
         this.PlayAnimation();
     }
@@ -36,7 +39,7 @@ public class EnemyController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            this.eating = true;
+            this.state = State.Attack;
             // Player has entered the enemy's trigger, perform the "eating" action
             EatPlayer();
         }
@@ -45,17 +48,16 @@ public class EnemyController : MonoBehaviour
     private void EatPlayer()
     {
         FishPlayer player = GameObject.Find("Player").GetComponent<FishPlayer>();
-        Debug.Log("player eaten!!");
-        animator.Play("Attack");
+
+        this.animator.Play("Attack");
 
         player.isAlive = false;
         player.playerAnimator.Play("Death");
-        // do some logic with the player
     }
 
     private void PlayAnimation()
     {
-        if (this.EnemyVisibility.canSeePlayer)
+        if (this.visibility.canSeePlayer)
         {
             this.animator.Play("Run");
         }
