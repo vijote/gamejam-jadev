@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishPlayer : MonoBehaviour
+public class Player : MonoBehaviour
 {
     // Speed constants
     public float forwardSpeed = 10f;
     public float turnSpeed = 35f;
+
+    private int score = 0;
 
     // User input
     private float horizontalInput;
@@ -15,12 +17,15 @@ public class FishPlayer : MonoBehaviour
     //Animator
     public Animator playerAnimator;
     public bool isAlive = true;
-    public Size size;
+    public Size size = Size.Small;
+
+    public static Player instance;
 
     // Start is called before the first frame update
     void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        instance = this;
     }
 
     // Update is called once per frame
@@ -72,5 +77,25 @@ public class FishPlayer : MonoBehaviour
 
         // Player rotates sideways
         this.transform.Rotate(this.horizontalInput * this.turnSpeed * Time.deltaTime * Vector3.up);
+    }
+
+    public void IncrementScore(int newScore)
+    {
+        this.score += newScore;
+
+        if(this.score > (int)SizeMaxScore.Large)
+        {
+            // Level clear
+        }
+        else if(this.score > (int)SizeMaxScore.Medium)
+        {
+            this.size = Size.Large;
+            return;
+        }
+        else if (this.score > (int)SizeMaxScore.Small)
+        {
+            this.size = Size.Medium;
+            return;
+        }
     }
 }

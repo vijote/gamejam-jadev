@@ -4,11 +4,24 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+public class Globals
+{
+    public static readonly int MAX_ENEMY_COUNT = 7;
+}
+
 public class State
 {
     public static string Idle = "Idle";
     public static string Running = "Run";
     public static string Attacking = "Attack";
+    public static string Dead = "Death";
+}
+
+public enum SizeMaxScore
+{
+    Small = 10,
+    Medium = 30,
+    Large = 50,
 }
 
 public enum Size
@@ -18,14 +31,11 @@ public enum Size
     Large
 }
 
-public class SizeHelper : MonoBehaviour
+public enum Score
 {
-    public static Size GetRandomSize()
-    {
-        Size[] enumValues = (Size[])Enum.GetValues(typeof(Size));
-        int randomIndex = UnityEngine.Random.Range(0, enumValues.Length);
-        return enumValues[randomIndex];
-    }
+    Small = 1,
+    Medium = 3,
+    Large = 5
 }
 
 public class AnimationDictionary
@@ -34,6 +44,17 @@ public class AnimationDictionary
         { State.Idle, "Idle_A" },
         { State.Running, "Run" },
         { State.Attacking, "Attack" },
+        { State.Dead, "Death" }
+    };
+}
+
+public class ScoreDictionary
+{
+    public static Dictionary<Size, Score> Scores = new Dictionary<Size, Score>()
+    {
+        { Size.Small, Score.Small },
+        { Size.Medium, Score.Medium },
+        { Size.Large, Score.Large }
     };
 }
 
