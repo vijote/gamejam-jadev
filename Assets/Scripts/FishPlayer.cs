@@ -17,6 +17,10 @@ public class FishPlayer : MonoBehaviour
     public bool isAlive = true;
     public Size size;
 
+
+    [SerializeField] private int food;
+    [SerializeField] private int goalFood;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +44,8 @@ public class FishPlayer : MonoBehaviour
             Mathf.Clamp(transform.position.y, minBound.y, maxBound.y),
             Mathf.Clamp(transform.position.z, minBound.z, maxBound.z)
         );
+
+         
     }
 
     private void HandlePlayerInput()
@@ -72,5 +78,11 @@ public class FishPlayer : MonoBehaviour
 
         // Player rotates sideways
         this.transform.Rotate(this.horizontalInput * this.turnSpeed * Time.deltaTime * Vector3.up);
+    }
+
+    public bool IsAbleToEvolve()
+    {
+        //despues hay q ponerse a fusionar esto con bichi
+        return true;
     }
 }
