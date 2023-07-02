@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private FishPlayer playerData;
     private Animator animator;
 
-    private Size size;
+    public Size size;
     private string state = State.Idle;
 
     // Start is called before the first frame update
@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
         this.animator = GetComponent<Animator>();
         this.visibility = GetComponent<FieldOfView>();
         this.player = GameObject.Find("Player");
+        this.visibility.playerRef = player;
         this.agent = GetComponent<NavMeshAgent>();
         this.playerData = player.GetComponent<FishPlayer>();
     }
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // The current animation is "Attack" and the game is finishing
-        if(this.state == State.Attack) return;
+        if(this.state == State.Attacking) return;
 
         // Follow the player if it's visible
         if (this.visibility.canSeePlayer)
@@ -43,6 +44,9 @@ public class Enemy : MonoBehaviour
             {
                 RunAway();
             }
+        } else
+        {
+            this.state = State.Idle;
         }
 
         this.PlayAnimation();
@@ -50,9 +54,10 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("collision!!");
         if (other.CompareTag("Player"))
         {
-            this.state = State.Attack;
+            this.state = State.Attacking;
             // Player has entered the enemy's trigger, perform the "eating" action
             EatPlayer();
         }
@@ -74,8 +79,6 @@ public class Enemy : MonoBehaviour
     private void EatPlayer()
     {
         FishPlayer player = GameObject.Find("Player").GetComponent<FishPlayer>();
-
-        this.animator.Play(AnimationDictionary.States[this.state]);
 
         player.isAlive = false;
         player.playerAnimator.Play("Death");

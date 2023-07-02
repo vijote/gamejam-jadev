@@ -8,7 +8,7 @@ public class State
 {
     public static string Idle = "Idle";
     public static string Running = "Run";
-    public static string Attack = "Attack";
+    public static string Attacking = "Attack";
 }
 
 public enum Size
@@ -31,9 +31,9 @@ public class SizeHelper : MonoBehaviour
 public class AnimationDictionary
 {
     public static Dictionary<string, string> States = new Dictionary<string, string>() {
-        { "Idle", "Idle" },
-        { "Run", "Run" },
-        { "Attack", "Attack" },
+        { State.Idle, "Idle_A" },
+        { State.Running, "Run" },
+        { State.Attacking, "Attack" },
     };
 }
 

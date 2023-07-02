@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
         // Get the Enemy component from the instantiated enemy GameObject
         Enemy newEnemy = newEnemyObject.GetComponent<Enemy>();
 
-        newEnemy.SetSize(SizeHelper.GetRandomSize());
+        // newEnemy.SetSize(SizeHelper.GetRandomSize());
 
         // Add the new enemy to the enemies list
         enemies.Add(newEnemy);

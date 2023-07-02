@@ -9,6 +9,7 @@ public class FieldOfView : MonoBehaviour
     [Range(0, 360)]
     public float angle;
 
+    // Necesary for the Editor GUI to work
     public GameObject playerRef;
 
     public LayerMask targetMask;
