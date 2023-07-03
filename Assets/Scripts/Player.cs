@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     {
         playerAnimator = GetComponent<Animator>();
         instance = this;
+        ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Small);
     }
 
     // Update is called once per frame
@@ -108,6 +109,7 @@ public class Player : MonoBehaviour
     public void IncrementScore(int newScore)
     {
         this.score += newScore;
+        ProgressBar.instance.SetProgress(this.score);
 
         if (this.score > (int)SizeMaxScore.Large)
         {
@@ -117,12 +119,14 @@ public class Player : MonoBehaviour
         {
             this.size = Size.Large;
             this.transform.localScale = new Vector3(2f, 2f, 2f);
+            ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Large);
             return;
         }
         else if (this.score > (int)SizeMaxScore.Small)
         {
             this.size = Size.Medium;
             this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Medium);
             return;
         }
     }
