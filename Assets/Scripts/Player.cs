@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     // Speed constants
     [SerializeField]
-    public float forwardSpeed = 10f;
+    private float forwardSpeed = 10f;
     public float turnSpeed = 35f;
 
     private int score = 0;
@@ -16,13 +16,11 @@ public class Player : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
-    //Animator
     public Animator playerAnimator;
     public bool isAlive = true;
     public Size size = Size.Small;
 
     public static Player instance;
-
 
     [SerializeField] private int food;
     [SerializeField] private int goalFood;
@@ -115,16 +113,18 @@ public class Player : MonoBehaviour
         {
             // Level clear
         }
-        else if (this.score > (int)SizeMaxScore.Medium)
+        else if (this.size == Size.Medium && this.score > (int)SizeMaxScore.Medium)
         {
             this.size = Size.Large;
+            PlayerSound.instance.PlayLevelUpSound();
             this.transform.localScale = new Vector3(2f, 2f, 2f);
             ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Large);
             return;
         }
-        else if (this.score > (int)SizeMaxScore.Small)
+        else if (this.size == Size.Small && this.score > (int)SizeMaxScore.Small)
         {
             this.size = Size.Medium;
+            PlayerSound.instance.PlayLevelUpSound();
             this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Medium);
             return;

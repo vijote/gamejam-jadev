@@ -34,7 +34,11 @@ public class Enemy : MonoBehaviour
         }
 
         // The current animation is "Attack" and the game is finishing
-        if(this.state == State.Attacking) return;
+        if (this.state == State.Attacking)
+        {
+            this.PlayAnimation();
+            return;
+        };
 
         // Follow the player if it's visible
         if (this.visibility.canSeePlayer)
@@ -62,7 +66,7 @@ public class Enemy : MonoBehaviour
         }
         if (!other.CompareTag("Player")) return;
 
-        if(this.size > Player.instance.size)
+        if(this.size > Player.instance.size && Player.instance.isAlive)
         {
             EatPlayer();
         } else
@@ -83,6 +87,7 @@ public class Enemy : MonoBehaviour
         this.isAlive = false;
 
         // Play animation
+        PlayerSound.instance.PlayEatSound();
         animator.Play(AnimationDictionary.States[this.state]);
         AnimationClip deathAnimation = animator.GetCurrentAnimatorClipInfo(0)[0].clip;
         float deathAnimationDuration = deathAnimation.length;
@@ -111,11 +116,12 @@ public class Enemy : MonoBehaviour
 
     private void EatPlayer()
     {
-        Player player = GameObject.Find("Player").GetComponent<Player>();
 
         this.state = State.Attacking;
-        player.isAlive = false;
-        player.playerAnimator.Play("Death");
+        Player.instance.isAlive = false;
+        Player.instance.playerAnimator.Play("Death");
+        BackgroundMusic.instance.StopPlaying();
+        PlayerSound.instance.PlayGameOverSound();
     }
 
     private void PlayAnimation()
