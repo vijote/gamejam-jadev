@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void OnPlayButtonClick()
     {
-        SceneManager.LoadScene("FishLevel");
+        SceneManager.LoadScene("IntroCutScene");
     }
 
     public void OnQuitButtonClick()
