@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/FishLevel.unity
     guid: 62d0a4adac63c7544b3f09fac7882280
+  - enabled: 1
+    path: Assets/Scenes/LizardLevel.unity
+    guid: b841470628c6bd84eb591a19f44b3459
   m_configObjects: {}

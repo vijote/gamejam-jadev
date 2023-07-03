@@ -9,8 +9,8 @@ public class FishPlayer : MonoBehaviour
     public float turnSpeed = 35f;
 
     // User input
-    private float horizontalInput;
-    private float verticalInput;
+    protected float horizontalInput;
+    protected float verticalInput;
 
     //Animator
     public Animator playerAnimator;
@@ -48,7 +48,7 @@ public class FishPlayer : MonoBehaviour
          
     }
 
-    private void HandlePlayerInput()
+    protected void HandlePlayerInput()
     {
         // User input variables get their values from the user input
         this.verticalInput = Input.GetAxis("Vertical");
@@ -58,7 +58,7 @@ public class FishPlayer : MonoBehaviour
         MovePlayer();
     }
 
-    private void PlayAnimation()
+    protected void PlayAnimation()
     {
         if (this.verticalInput != 0)
         {
@@ -70,7 +70,7 @@ public class FishPlayer : MonoBehaviour
         }
     }
 
-    private void MovePlayer()
+    protected void MovePlayer()
     {
         // Player moves forward
         this.transform.Translate(this.forwardSpeed * Time.deltaTime * this.verticalInput * Vector3.forward);
