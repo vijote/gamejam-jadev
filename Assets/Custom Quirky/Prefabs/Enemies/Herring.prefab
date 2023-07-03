@@ -248,9 +248,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3605374311901648195}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.576199, y: 0, z: 0.37502635}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7214686983654236726}
@@ -259,7 +259,7 @@ Transform:
   - {fileID: 8259931459835214340}
   - {fileID: 6776962786289902633}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &3518842856246755161
 LODGroup:
@@ -323,7 +323,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 12
+  m_Speed: 7.5
   m_Acceleration: 4
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -386,7 +386,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.83, y: 1, z: 1.43}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4522838385776743692
 GameObject:

@@ -30,7 +30,6 @@ public class Enemy : MonoBehaviour
     {
         // Enemy is dead
         if (!this.isAlive) {
-            StopAllCoroutines();
             return;
         }
 
@@ -56,6 +55,11 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Limits"))
+        {
+            DestroySelf();
+            return;
+        }
         if (!other.CompareTag("Player")) return;
 
         if(this.size > Player.instance.size)
@@ -77,7 +81,6 @@ public class Enemy : MonoBehaviour
         // Stop other events from happening
         this.state = State.Dead;
         this.isAlive = false;
-        EnemyManager.instance.RemoveEnemy(this);
 
         // Play animation
         animator.Play(AnimationDictionary.States[this.state]);
@@ -88,11 +91,13 @@ public class Enemy : MonoBehaviour
         Player.instance.IncrementScore((int)ScoreDictionary.Scores[this.size]);
 
         // Remove entity after the animation is done
+        StopAllCoroutines();
         Invoke(nameof(DestroySelf), deathAnimationDuration);
     }
 
     private void DestroySelf()
     {
+        EnemyManager.instance.RemoveEnemy(this);
         Destroy(this.gameObject);
     }
 

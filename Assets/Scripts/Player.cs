@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     // Speed constants
+    [SerializeField]
     public float forwardSpeed = 10f;
     public float turnSpeed = 35f;
 
@@ -35,6 +37,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleSceneReload();
+
         if (!isAlive) return;
 
         HandlePlayerInput();
@@ -46,7 +50,7 @@ public class Player : MonoBehaviour
         // Clamp the player's position to the playable area boundaries
         transform.position = new Vector3(
             Mathf.Clamp(transform.position.x, minBound.x, maxBound.x),
-            Mathf.Clamp(transform.position.y, minBound.y, maxBound.y),
+            transform.position.y,
             Mathf.Clamp(transform.position.z, minBound.z, maxBound.z)
         );
 
@@ -61,6 +65,24 @@ public class Player : MonoBehaviour
 
         PlayAnimation();
         MovePlayer();
+    }
+
+    private void HandleSceneReload()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReloadScene();
+            return;
+        }
+    }
+
+    public void ReloadScene()
+    {
+        // Get the index of the current active scene
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Reload the scene by loading it using its index
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     private void PlayAnimation()
@@ -96,11 +118,13 @@ public class Player : MonoBehaviour
         else if (this.score > (int)SizeMaxScore.Medium)
         {
             this.size = Size.Large;
+            this.transform.localScale = new Vector3(2f, 2f, 2f);
             return;
         }
         else if (this.score > (int)SizeMaxScore.Small)
         {
             this.size = Size.Medium;
+            this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             return;
         }
     }

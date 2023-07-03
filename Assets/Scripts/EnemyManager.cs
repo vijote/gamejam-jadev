@@ -197,9 +197,11 @@ public class EnemyManager : MonoBehaviour
         // Generate a random position within the adjusted limits
         Vector3 randomPosition = new Vector3(
             Random.Range(adjustedMinPos.x, adjustedMaxPos.x),
-            Random.Range(adjustedMinPos.y, adjustedMaxPos.y),
-            0f
+            1f,
+            Random.Range(adjustedMinPos.z, adjustedMaxPos.z)            
         );
+
+        Debug.Log(randomPosition);
 
         return randomPosition;
     }

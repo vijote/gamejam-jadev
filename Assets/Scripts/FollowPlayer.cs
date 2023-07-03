@@ -8,6 +8,7 @@ public class FollowPlayer : MonoBehaviour
     public GameObject player;
 
     // Offset constant
+    [SerializeField]
     private Vector3 offset = new Vector3(-7.12f, 5.8f, -1.88f);
 
 
