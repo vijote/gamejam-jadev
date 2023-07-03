@@ -37,11 +37,6 @@ public class EnemyManager : MonoBehaviour
 
     private GameObject SelectEnemyPrefab()
     {
-        if (ShouldSpawnSmallEnemy())
-        {
-            return smallEnemyPrefab;
-        }
-
         if (ShouldSpawnMediumEnemy())
         {
             return mediumEnemyPrefab;
@@ -52,6 +47,11 @@ public class EnemyManager : MonoBehaviour
             return largeEnemyPrefab;
         }
 
+        if (ShouldSpawnSmallEnemy())
+        {
+            return smallEnemyPrefab;
+        }
+
         return null;
     }
 
@@ -59,21 +59,21 @@ public class EnemyManager : MonoBehaviour
     {
         if (Player.instance.size == Size.Small)
         {
-            if (MediumEnemiesCount() < 1) return true;
+            if (MediumEnemiesCount() < 2) return true;
 
             return false;
         }
 
         if (Player.instance.size == Size.Medium)
         {
-            if (MediumEnemiesCount() < 3) return true;
+            if (MediumEnemiesCount() < 17) return true;
 
             return false;
         }
 
         if (Player.instance.size == Size.Large)
         {
-            if (MediumEnemiesCount() < 2) return true;
+            if (MediumEnemiesCount() < 7) return true;
 
             return false;
         }
@@ -85,21 +85,21 @@ public class EnemyManager : MonoBehaviour
     {
         if (Player.instance.size == Size.Small)
         {
-            if (SmallEnemiesCount() < 5) return true;
+            if (SmallEnemiesCount() < 18) return true;
 
             return false;
         }
 
         if (Player.instance.size == Size.Medium)
         {
-            if (SmallEnemiesCount() < 2) return true;
+            if (SmallEnemiesCount() < 4) return true;
 
             return false;
         }
 
         if (Player.instance.size == Size.Large)
         {
-            if (SmallEnemiesCount() < 1) return true;
+            if (SmallEnemiesCount() < 7) return true;
 
             return false;
         }
@@ -111,21 +111,21 @@ public class EnemyManager : MonoBehaviour
     {
         if (Player.instance.size == Size.Small)
         {
-            if(LargeEnemiesCount() < 1) return true;
+            if(LargeEnemiesCount() < 2) return true;
 
             return false;
         }
 
         if (Player.instance.size == Size.Medium)
         {
-            if (LargeEnemiesCount() < 2) return true;
+            if (LargeEnemiesCount() < 3) return true;
 
             return false;
         }
 
         if(Player.instance.size == Size.Large)
         {
-            if(LargeEnemiesCount() < 5) return true;
+            if(LargeEnemiesCount() < 10) return true;
 
             return false;
         }

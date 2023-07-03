@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Globals
 {
-    public static readonly int MAX_ENEMY_COUNT = 7;
+    public static readonly int MAX_ENEMY_COUNT = 24;
 }
 
 public class State

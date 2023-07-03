@@ -53,8 +53,6 @@ public class Player : MonoBehaviour
             transform.position.y,
             Mathf.Clamp(transform.position.z, minBound.z, maxBound.z)
         );
-
-         
     }
 
     private void HandlePlayerInput()
