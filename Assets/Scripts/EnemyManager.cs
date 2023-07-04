@@ -201,8 +201,6 @@ public class EnemyManager : MonoBehaviour
             Random.Range(adjustedMinPos.z, adjustedMaxPos.z)            
         );
 
-        Debug.Log(randomPosition);
-
         return randomPosition;
     }
 

@@ -43,6 +43,16 @@ public class GameStateManager : MonoBehaviour
         SceneManager.LoadScene(currentSceneIndex);
     }
 
+    public static void GameOver()
+    {
+        Debug.Log("started!!");
+        state = GameState.Over;
+        if (instance.pauseMenu == null) return;
+
+        Time.timeScale = 0f;
+        instance.pauseMenu.SetActive(true);
+    }
+
     //[SerializeField]
     //private GameOverMenu gameOverMenu = null;
     // Start is called before the first frame update

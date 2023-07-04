@@ -2,9 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject resumeButton;
+    [SerializeField]
+    private GameObject gameOverText;
+
+    private void OnEnable()
+    {
+        resumeButton.SetActive(GameStateManager.state == GameState.Paused);
+        gameOverText.SetActive(GameStateManager.state == GameState.Over);
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))

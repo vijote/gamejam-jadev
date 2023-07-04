@@ -122,6 +122,15 @@ public class Enemy : MonoBehaviour
         Player.instance.playerAnimator.Play("Death");
         BackgroundMusic.instance.StopPlaying();
         PlayerSound.instance.PlayGameOverSound();
+
+        StartCoroutine(PlayGameOverWithDelay(0.9f));
+    }
+
+    private IEnumerator PlayGameOverWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        GameStateManager.GameOver();
     }
 
     private void PlayAnimation()
