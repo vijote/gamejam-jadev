@@ -24,4 +24,14 @@ public class BackgroundMusic : MonoBehaviour
     {
         audioSource.Stop();
     }
+
+    public void Pause()
+    {
+        audioSource.Pause();
+    }
+
+    public void Resume()
+    {
+        audioSource.UnPause();
+    }
 }

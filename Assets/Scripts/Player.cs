@@ -60,6 +60,11 @@ public class Player : MonoBehaviour
         this.verticalInput = Input.GetAxis("Vertical");
         this.horizontalInput = Input.GetAxis("Horizontal");
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameStateManager.Pause();
+        }
+
         PlayAnimation();
         MovePlayer();
     }

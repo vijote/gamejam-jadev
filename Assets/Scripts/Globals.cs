@@ -17,6 +17,13 @@ public class State
     public static string Dead = "Death";
 }
 
+public enum GameState
+{
+    Playing,
+    Paused,
+    Over
+}
+
 public enum SizeMaxScore
 {
     Small = 10,
