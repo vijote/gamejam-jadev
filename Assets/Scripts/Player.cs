@@ -78,6 +78,8 @@ public class Player : MonoBehaviour
 
     private void HandlePause()
     {
+        if (this.state == State.Dead) return;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameStateManager.Pause();
