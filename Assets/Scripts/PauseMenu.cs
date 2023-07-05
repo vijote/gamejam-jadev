@@ -19,6 +19,8 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
+        if (GameStateManager.state == GameState.Over) return;
+
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             OnResumeButtonClick();
