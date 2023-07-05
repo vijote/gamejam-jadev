@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -17,7 +18,7 @@ public class Player : MonoBehaviour
     private float verticalInput;
 
     public Animator playerAnimator;
-    public bool isAlive = true;
+    private string state = State.Idle;
     public Size size = Size.Small;
 
     public static Player instance;
@@ -36,12 +37,21 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleSceneReload();
+        if (GameStateManager.state == GameState.Over) return;
 
-        if (!isAlive) return;
+        HandlePause();
 
         HandlePlayerInput();
 
+        MovePlayer();
+
+        CheckPlayableMovement();
+
+        PlayAnimation();
+    }
+
+    private void CheckPlayableMovement()
+    {
         // Calculate the boundaries of the playable area
         Vector3 minBound = PlayableArea.playableAreaCenter - PlayableArea.playableAreaSize / 2f;
         Vector3 maxBound = PlayableArea.playableAreaCenter + PlayableArea.playableAreaSize / 2f;
@@ -56,58 +66,55 @@ public class Player : MonoBehaviour
 
     private void HandlePlayerInput()
     {
+        if (this.state == State.Dead) return;
+
         // User input variables get their values from the user input
         this.verticalInput = Input.GetAxis("Vertical");
         this.horizontalInput = Input.GetAxis("Horizontal");
 
+        if (this.horizontalInput != 0 || this.verticalInput != 0) this.state = State.Running;
+        else this.state = State.Idle;
+    }
+
+    private void HandlePause()
+    {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             GameStateManager.Pause();
         }
-
-        PlayAnimation();
-        MovePlayer();
-    }
-
-    private void HandleSceneReload()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReloadScene();
-            return;
-        }
-    }
-
-    public void ReloadScene()
-    {
-        // Get the index of the current active scene
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Reload the scene by loading it using its index
-        SceneManager.LoadScene(currentSceneIndex);
     }
 
     private void PlayAnimation()
     {
-        if (this.verticalInput != 0)
-        {
-            this.playerAnimator.Play("Swim");
-        }
-        else
-        {
-            this.playerAnimator.Play("Idle_A");
-        }
+        this.playerAnimator.Play(AnimationDictionary.States[this.state]);
+    }
+
+    public static void Kill()
+    {
+        instance.state = State.Dead;
+        instance.PlayAnimation();
     }
 
     private void MovePlayer()
     {
-        // Player moves forward
-        this.transform.Translate(this.forwardSpeed * Time.deltaTime * this.verticalInput * Vector3.forward);
+        // Calculate the movement direction based on input
+        Vector3 inputDirection = new Vector3(this.horizontalInput, 0f, this.verticalInput).normalized;
 
+        // Transform the input direction from local space to world space based on the camera's orientation
+        Vector3 movementDirection = Camera.main.transform.TransformDirection(inputDirection);
+        movementDirection.y = 0f; // Ignore any vertical component
 
-        // Player rotates sideways
-        this.transform.Rotate(this.horizontalInput * this.turnSpeed * Time.deltaTime * Vector3.up);
+        // Rotate the player to face the movement direction
+        if (movementDirection.magnitude > 0)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            this.transform.rotation = targetRotation;
+        }
+
+        // Player moves forward relative to the camera's point of view
+        this.transform.Translate(movementDirection * this.forwardSpeed * Time.deltaTime, Space.World);
     }
+
 
     public void IncrementScore(int newScore)
     {

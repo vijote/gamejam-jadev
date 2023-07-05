@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
         }
         if (!other.CompareTag("Player")) return;
 
-        if(this.size > Player.instance.size && Player.instance.isAlive)
+        if(this.size > Player.instance.size && GameStateManager.state == GameState.Playing)
         {
             EatPlayer();
         } else
@@ -116,14 +116,12 @@ public class Enemy : MonoBehaviour
 
     private void EatPlayer()
     {
-
         this.state = State.Attacking;
-        Player.instance.isAlive = false;
-        Player.instance.playerAnimator.Play("Death");
+        Player.Kill();
         BackgroundMusic.instance.StopPlaying();
         PlayerSound.instance.PlayGameOverSound();
 
-        StartCoroutine(PlayGameOverWithDelay(0.9f));
+        StartCoroutine(PlayGameOverWithDelay(0.75f));
     }
 
     private IEnumerator PlayGameOverWithDelay(float delay)

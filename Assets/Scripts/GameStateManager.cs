@@ -45,7 +45,6 @@ public class GameStateManager : MonoBehaviour
 
     public static void GameOver()
     {
-        Debug.Log("started!!");
         state = GameState.Over;
         if (instance.pauseMenu == null) return;
 
