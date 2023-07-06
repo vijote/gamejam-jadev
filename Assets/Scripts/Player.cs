@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
 
         if (this.score > (int)SizeMaxScore.Large)
         {
-            // Level clear
+            SceneManager.LoadScene("EndingCutscene");
         }
         else if (this.size == Size.Medium && this.score > (int)SizeMaxScore.Medium)
         {

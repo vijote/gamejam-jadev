@@ -73,10 +73,10 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     - _BumpScale: 1
-    - _Caustic_Brightness: 1
+    - _Caustic_Brightness: 0.751
     - _Caustic_Distortion_Factor: 3
     - _Caustic_Distortion_Speed: 0
-    - _Caustic_Speed: 0.073
+    - _Caustic_Speed: 0.05
     - _Caustic_Texture_Rotation: 90
     - _Caustic_Tile: 0.1
     - _Cutoff: 0.5
