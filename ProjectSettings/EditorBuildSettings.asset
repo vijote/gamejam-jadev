@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/EndingCutscene.unity
     guid: 8e6e03e6f8abacb4781a21ed3acda1f8
   - enabled: 1
+    path: Assets/Scenes/LizardLevel.unity
+    guid: b841470628c6bd84eb591a19f44b3459
+  - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 71ce2f4f7577ae042bf07dfa18c7eaf2
   m_configObjects: {}

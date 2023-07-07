@@ -152,9 +152,15 @@ public class EnemyManager : MonoBehaviour
     {
         if (enemies.Count == Globals.MAX_ENEMY_COUNT) return;
 
+
+
+        //A good distance between the player and the spawn select is 12.5 units
+        //that is the minimal horizontal distance to a snake to not appear on screen when is completely horizontal to our player 
+        //while(Vector3.Distance(randomPosition, player.position) < 12.5f)
+
+
         // Generate a random position within the playable area
         Vector3 randomPosition = GetRandomPositionWithinPlayableArea();
-
         // Instantiate a new enemy from the selected prefab at the random position
         GameObject newEnemyObject = Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
 

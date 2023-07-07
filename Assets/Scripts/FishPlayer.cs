@@ -18,9 +18,6 @@ public class FishPlayer : MonoBehaviour
     public Size size;
 
 
-    [SerializeField] private int food;
-    [SerializeField] private int goalFood;
-
     // Start is called before the first frame update
     void Start()
     {

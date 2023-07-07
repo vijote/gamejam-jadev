@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private float forwardSpeed = 10f;
     public float turnSpeed = 35f;
 
+    [SerializeField]
     private int score = 0;
 
     // User input
@@ -20,15 +21,16 @@ public class Player : MonoBehaviour
     public Animator playerAnimator;
     private string state = State.Idle;
     public Size size = Size.Small;
-
     public static Player instance;
 
-    [SerializeField] private int food;
-    [SerializeField] private int goalFood;
+
+    public bool isAbleToEvolve { get; private set; }
+
 
     // Start is called before the first frame update
     void Start()
     {
+        isAbleToEvolve = false;
         playerAnimator = GetComponent<Animator>();
         instance = this;
         ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Small);
@@ -125,7 +127,10 @@ public class Player : MonoBehaviour
 
         if (this.score > (int)SizeMaxScore.Large)
         {
-            SceneManager.LoadScene("EndingCutscene");
+            //Cargar una UI que diga Encuentra tierra firme, ver si se puede apuntar a la esquina
+            this.isAbleToEvolve = true;
+            ProgressBar.instance.textMeshPro.gameObject.SetActive(true);
+            //SceneManager.LoadScene("EndingCutscene");
         }
         else if (this.size == Size.Medium && this.score > (int)SizeMaxScore.Medium)
         {
@@ -143,11 +148,5 @@ public class Player : MonoBehaviour
             ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Medium);
             return;
         }
-    }
-
-    public bool IsAbleToEvolve()
-    {
-        //despues hay q ponerse a fusionar esto con bichi
-        return true;
     }
 }
