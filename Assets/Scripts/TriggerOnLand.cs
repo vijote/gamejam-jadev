@@ -19,7 +19,7 @@ public class TriggerOnLand : MonoBehaviour
     {
         SphereCollider sc = GetComponent<SphereCollider>();
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.position, sc.radius);
+        Gizmos.DrawWireSphere(transform.position, sc.radius);
     }
 
     // Update is called once per frame
