@@ -9,9 +9,9 @@ public class TriggerOnLand : MonoBehaviour
 
     [SerializeField] private string sceneName;
     [SerializeField] private RawImage image;
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && Player.instance.isAbleToEvolve)
         {
             image.gameObject.SetActive(true);
             StartCoroutine(FadeImage(image,0f,1f,1f));
@@ -23,8 +23,6 @@ public class TriggerOnLand : MonoBehaviour
     {
         float elapsedTime = 0f;
         float currentAlpha;
-        Color currentColor = image.color;
-        Color targetColor = new Color(0f, 0f, 0f, targetAlpha);
         while (elapsedTime < fadeDuration)
         {
             elapsedTime += Time.deltaTime;
@@ -34,7 +32,6 @@ public class TriggerOnLand : MonoBehaviour
             image.color = new Color(0f, 0f, 0f, currentAlpha);
             yield return null;
         }
-        currentAlpha = targetAlpha;
         SceneManager.LoadScene(sceneName);
     }
 

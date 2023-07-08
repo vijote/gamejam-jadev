@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class FadeOutCanvas : MonoBehaviour
 {
-    private Image canvasImage;
+    private RawImage canvasImage;
     [SerializeField]
     private float fadeDuration = 1f;
-    private void OnEnable()
+    private void Start()
     {
-        canvasImage = this.gameObject.GetComponent<Image>();
+        canvasImage = this.gameObject.GetComponent<RawImage>();
         StartCoroutine(SmoothFadeCanvas(1f, 0f));
     }
 
