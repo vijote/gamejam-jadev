@@ -137,6 +137,7 @@ public class Player : MonoBehaviour
             this.size = Size.Large;
             PlayerSound.instance.PlayLevelUpSound();
             this.transform.localScale = new Vector3(2f, 2f, 2f);
+            SizeIndicator.SetIndicator(this.size);
             ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Large);
             return;
         }
@@ -145,6 +146,7 @@ public class Player : MonoBehaviour
             this.size = Size.Medium;
             PlayerSound.instance.PlayLevelUpSound();
             this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            SizeIndicator.SetIndicator(this.size);
             ProgressBar.instance.SetMaxProgress((int)SizeMaxScore.Medium);
             return;
         }
